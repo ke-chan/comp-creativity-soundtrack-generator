@@ -1,0 +1,3 @@
+this is a test string for the stop word removal
+kevin chan and connor bain
+computational creativity
