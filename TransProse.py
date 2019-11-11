@@ -1,5 +1,10 @@
 import numpy as np
 import math
+from numpy.random import choice
+
+PROB_MAP = [0.5, 0.15, 0.075, 0.025, 0.025, 0.075, 0.15]
+PITCH_RANK = [1, 5, 3, 6, 2, 4, 7]
+PITCH_MAP = ["C", "D", "E", "F", "G", "A", "B"]
 
 JS_MAX = 1 # FIXME: this is not a good estimate
 JS_MIN = 0 ## FIXME: SAME
@@ -63,7 +68,7 @@ class Theme:
             elif len(self.melodies) < numMelodyLines:
                 self.melodies.append(Melody(key))
 
-        JS = (overallCounts["joy"] - overallCounts["sadness"] / overallWordCount)
+        JS = (overallCounts["joy"] - overallCounts["sadness"]) / overallWordCount
         M0 = 0
         # Now we set the octaves for each Melody
         for melody in self.melodies:
@@ -92,15 +97,17 @@ class Theme:
                 for measureChunk in np.array_split(plotChunk, MEASURE_CHUNKS):
                     (counts, wordCount) = calculateCounts(measureChunk)
                     index = math.ceiling(5 * ((counts[melody.tag] / wordCount) - minChunkDensity) / (maxChunkDensity - minChunkDensity))
-                    melody.measures.append(Measure(2**(index - 1)), counts[melody.tag] / wordCount)
+                    pitchIndex = math.round(6 * ((counts[melody.tag] / wordCount) - minChunkDensity) / (maxChunkDensity - minChunkDensity))
+                    theMeasure = Measure((2**(index - 1)), counts[melody.tag] / wordCount)
 
-                    ## TODO: Need to fill in the pitch selection
-
+                    theMeasure.notes = choice(PITCH_RANK, theMeasure.num_notes, p=PROB_MAP[pitchIndex:] + PROB_MAP[:pitchIndex])
+                    melody.measures.append(theMeasure)
 
 class Measure:
     def __init__(self, num_notes, density):
         self.num_notes = num_notes
         self.emotion_density = density
+        self.notes = []
 
 class Melody:
     def __init__(self, tag="overall"):
