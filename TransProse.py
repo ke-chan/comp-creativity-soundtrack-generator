@@ -4,7 +4,7 @@ from numpy.random import choice
 import pickle
 
 PROB_MAP = [0.5, 0.15, 0.075, 0.025, 0.025, 0.075, 0.15]
-PITCH_RANK = [1, 5, 3, 6, 2, 4, 7]
+PITCH_RANK = [0, 4, 2, 5, 1, 3, 6]
 PITCH_MAP = ["C", "D", "E", "F", "G", "A", "B"]
 
 JS_MAX = 1 # FIXME: this is not a good estimate
@@ -27,9 +27,10 @@ class Theme:
         self.tempo = 0
 
     def output(self):
-        print("T" + str(round(self.tempo)) + " KC" + self.key + " ")
-        for melody in self.melodies:
-            melody.output()
+        outputDictionary = {}
+        outputDictionary["tempo"] = self.tempo
+        outputDictionary["melodies"] = [melody.output() for melody in self.melodies]
+        return outputDictionary
 
     def setTempo(self, angerDensity, joyDensity, sadnessDensity, minTempo = 40, maxTempo = 180, minActive = -0.002, maxActive = 0.017):
         active = ((angerDensity + joyDensity) / 2)
@@ -60,11 +61,7 @@ class Theme:
         return (counts, totalWordCount)
 
     def generate(self, theText, numMelodyLines = 3):
-
-        print(WORD_EMOTION_DICT["chuckle"])
-
         (overallCounts, overallWordCount) = self.calculateCounts(theText)
-        print(overallCounts)
         self.setTempo(overallCounts["anger"] / overallWordCount, overallCounts["joy"] / overallWordCount, overallCounts["sadness"] / overallWordCount)
         self.setKey(overallCounts["positive"], overallCounts["negative"])
 
@@ -106,7 +103,7 @@ class Theme:
             for plotChunk in plotChunks:
                 for measureChunk in np.array_split(plotChunk, MEASURE_CHUNKS):
                     (counts, wordCount) = self.calculateCounts(measureChunk)
-                    theMeasure = Measure(counts[melody.tag] / wordCount)
+                    theMeasure = Measure(counts[melody.tag] / wordCount, melody.octave)
                     melody.measures.append(theMeasure)
 
             maxMeasureDensity = max([x.emotion_density for x in melody.measures])
@@ -125,13 +122,14 @@ class Theme:
                 theMeasure.notes = choice(PITCH_RANK, theMeasure.num_notes, p=(PROB_MAP[pitchIndex:] + PROB_MAP[:pitchIndex]))
 
 class Measure:
-    def __init__(self, density):
+    def __init__(self, density, octave):
         self.num_notes = 0
+        self.octave = octave
         self.emotion_density = density
         self.notes = []
 
     def output(self):
-        print(self.notes)
+        return [(PITCH_MAP[note] + str(self.octave), 4 / self.num_notes) for note in self.notes]
 
 class Melody:
     def __init__(self, tag="overall"):
@@ -140,5 +138,9 @@ class Melody:
         self.octave = 0
 
     def output(self):
-        for measure in self.measures:
-            measure.output()
+        # Build a list of lists using Measure's output function
+        output = [measure.output() for measure in self.measures]
+        # Flatten list and return value
+        return [val for sublist in output for val in sublist]
+
+        #print([note for measure in output for note in measure.notes])

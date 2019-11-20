@@ -7,4 +7,6 @@ theTheme = TransProse.Theme()
 
 theTheme.generate(theText)
 
-theTheme.output()
+theOutput = theTheme.output()
+print(theOutput["tempo"])
+print(theOutput["melodies"])
