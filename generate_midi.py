@@ -14,7 +14,7 @@ theOutput = theTheme.output()
 
 def gen_midi(melodies, tempo):
     music_gen =  pretty_midi.PrettyMIDI()
-    piano_program = pretty_midi.instrument_name_to_program("string ensemble 2")
+    piano_program = pretty_midi.instrument_name_to_program("acoustic grand piano")
     piano = pretty_midi.Instrument(program=piano_program)
     #string_program = pretty_midi.instrument_name_to_program("string ensemble 1")
     #string_ens = pretty_midi.Instrument(program=string_program)
@@ -36,5 +36,10 @@ def gen_midi(melodies, tempo):
     # Write out the MIDI data
     music_gen.write('generated_melody_primer.mid')
 
-gen_midi(theOutput["melodies"],120)
+gen_midi(theOutput["melodies"],60)
+
+"""
+melody_rnn_generate --config=basic_rnn --bundle_file="C:/Users/Kevin Chan/Documents/Northwestern/Super_Senior_Year/Computational Creativity/comp-creativity-soundtrack-generator/models/basic_rnn.mag" --output_dir="C:/Users/Kevin Chan/Documents/Northwestern/Super_Senior_Year/Computational Creativity/comp-creativity-soundtrack-generator/generated" --num_outputs=5 --num_steps=2048 --primer_midi=generated_melody_primer.mid
+"""
+
 
