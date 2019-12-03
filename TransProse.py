@@ -143,4 +143,5 @@ class Melody:
         # Flatten list and return value
         return [val for sublist in output for val in sublist]
 
+
         #print([note for measure in output for note in measure.notes])

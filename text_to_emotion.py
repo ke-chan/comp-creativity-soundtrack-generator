@@ -7,7 +7,7 @@ from nltk.tokenize import RegexpTokenizer
 
 def get_words_from_text(filename):
     #read in a text file and return a list of words from the text file with stopwords removed
-    with open(filename, 'r') as file:
+    with open(filename, 'r',encoding='utf-8') as file:
         data = file.read().replace('\n', ' ')
     stop_words = set(stopwords.words('english'))
     data = data.lower()
