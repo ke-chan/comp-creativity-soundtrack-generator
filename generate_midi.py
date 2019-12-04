@@ -9,6 +9,8 @@ theTheme = TransProse.Theme()
 theTheme.generate(theText)
 
 theOutput = theTheme.output()
+
+print(theOutput)
 #print(theOutput["tempo"])
 #print(theOutput["melodies"])
 
@@ -37,9 +39,3 @@ def gen_midi(melodies, tempo):
     music_gen.write('generated_melody_primer.mid')
 
 gen_midi(theOutput["melodies"],60)
-
-"""
-melody_rnn_generate --config=basic_rnn --bundle_file="C:/Users/Kevin Chan/Documents/Northwestern/Super_Senior_Year/Computational Creativity/comp-creativity-soundtrack-generator/models/basic_rnn.mag" --output_dir="C:/Users/Kevin Chan/Documents/Northwestern/Super_Senior_Year/Computational Creativity/comp-creativity-soundtrack-generator/generated" --num_outputs=5 --num_steps=2048 --primer_midi=generated_melody_primer.mid
-"""
-
-

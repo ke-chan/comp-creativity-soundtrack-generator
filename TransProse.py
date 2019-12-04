@@ -5,7 +5,8 @@ import pickle
 
 PROB_MAP = [0.5, 0.15, 0.075, 0.025, 0.025, 0.075, 0.15]
 PITCH_RANK = [0, 4, 2, 5, 1, 3, 6]
-PITCH_MAP = ["C", "D", "E", "F", "G", "A", "B"]
+PITCH_MAP_MAJOR = ["C", "D", "E", "F", "G", "A", "B"]
+PITCH_MAP_MINOR = ["A", "B", "C", "D", "E", "F", "G"]
 
 JS_MAX = 1 # FIXME: this is not a good estimate
 JS_MIN = 0 ## FIXME: SAME
@@ -36,7 +37,10 @@ class Theme:
         active = ((angerDensity + joyDensity) / 2)
         passive = sadnessDensity
         activityScore = active - passive
-        self.tempo =  minTempo + (((activityScore - minActive) * (maxTempo - minTempo)) / (maxActive - minActive))
+
+        self.tempo = ((active/(maxTempo - minTempo))*180)
+
+        self.tempo =  minTempo + (((active - minActive) * (maxTempo - minTempo)) / (maxActive - minActive))
         return self.tempo
 
     def setKey(self, positiveCount, negativeCount):
@@ -68,13 +72,13 @@ class Theme:
         # Calculate melody tags (i.e. overall + 8 different emotions)
         sortedCounts = sorted(overallCounts.items(), key=lambda kv: kv[1])
         # Start with the overall melody (M_0)
-        self.melodies.append(Melody())
+        self.melodies.append(Melody(self.key))
         # Go through each of the keys
         for (key, value) in sortedCounts:
             if key == "positive" or key == "negative" or key == "overall":
                 continue
             elif len(self.melodies) < numMelodyLines:
-                self.melodies.append(Melody(key))
+                self.melodies.append(Melody(self.key, key))
 
         JS = (overallCounts["joy"] - overallCounts["sadness"]) / overallWordCount
         M0 = 0
@@ -103,43 +107,58 @@ class Theme:
             for plotChunk in plotChunks:
                 for measureChunk in np.array_split(plotChunk, MEASURE_CHUNKS):
                     (counts, wordCount) = self.calculateCounts(measureChunk)
-                    theMeasure = Measure(counts[melody.tag] / wordCount, melody.octave)
+                    theMeasure = Measure(counts[melody.tag] / wordCount, melody.octave, measureChunk)
                     melody.measures.append(theMeasure)
 
             maxMeasureDensity = max([x.emotion_density for x in melody.measures])
             minMeasureDensity = min([x.emotion_density for x in melody.measures])
 
+            print(minMeasureDensity)
+            print(maxMeasureDensity)
+
             for theMeasure in melody.measures:
-                index = math.ceil(5 * ((counts[melody.tag] / wordCount) - minMeasureDensity) / (maxMeasureDensity - minMeasureDensity))
-                pitchIndex = round(6 * ((counts[melody.tag] / wordCount) - minMeasureDensity) / (maxMeasureDensity - minMeasureDensity))
+                index = math.ceil(4 * (theMeasure.emotion_density - minMeasureDensity) / (maxMeasureDensity - minMeasureDensity))
                 #theMeasure = Measure((2**(index - 1)), counts[melody.tag] / wordCount)
                 # print(index)
                 # print(2**(index - 1))
                 # print(PITCH_RANK)
                 # print(theMeasure.num_notes)
                 # print(PROB_MAP[pitchIndex:] + PROB_MAP[:pitchIndex])
-                theMeasure.num_notes = (2**(index - 1))
-                theMeasure.notes = choice(PITCH_RANK, theMeasure.num_notes, p=(PROB_MAP[pitchIndex:] + PROB_MAP[:pitchIndex]))
+                theMeasure.num_notes = (2**(index))
+
+                tempList = []
+                for aChunk in np.array_split(theMeasure.theText, theMeasure.num_notes):
+                    (counts, wordCount) = self.calculateCounts(aChunk)
+                    thePitch = round(6 * ((counts[melody.tag] / wordCount) - minMeasureDensity / (maxMeasureDensity - minMeasureDensity))) % 7
+                    theMeasure.notes.append(PITCH_RANK[thePitch])
+                    print(theMeasure.notes)
+
+                #theMeasure.notes = choice(PITCH_RANK, theMeasure.num_notes, p=(PROB_MAP[pitchIndex:] + PROB_MAP[:pitchIndex]))
 
 class Measure:
-    def __init__(self, density, octave):
+    def __init__(self, density, octave, someText):
         self.num_notes = 0
         self.octave = octave
         self.emotion_density = density
         self.notes = []
+        self.theText = someText
 
-    def output(self):
-        return [(PITCH_MAP[note] + str(self.octave), 4 / self.num_notes) for note in self.notes]
+    def output(self, key):
+        if key == "major":
+            return [(PITCH_MAP_MAJOR[note] + str(self.octave), 4 / self.num_notes) for note in self.notes]
+        else:
+            return [(PITCH_MAP_MINOR[note] + str(self.octave), 4 / self.num_notes) for note in self.notes]
 
 class Melody:
-    def __init__(self, tag="overall"):
+    def __init__(self, theKey, tag="overall"):
         self.measures = []
         self.tag = tag
         self.octave = 0
+        self.key = theKey
 
     def output(self):
         # Build a list of lists using Measure's output function
-        output = [measure.output() for measure in self.measures]
+        output = [measure.output(self.key) for measure in self.measures]
         # Flatten list and return value
         return [val for sublist in output for val in sublist]
 
