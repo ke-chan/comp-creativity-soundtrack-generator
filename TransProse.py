@@ -113,8 +113,8 @@ class Theme:
             maxMeasureDensity = max([x.emotion_density for x in melody.measures])
             minMeasureDensity = min([x.emotion_density for x in melody.measures])
 
-            print(minMeasureDensity)
-            print(maxMeasureDensity)
+            #print(minMeasureDensity)
+            #print(maxMeasureDensity)
 
             for theMeasure in melody.measures:
                 index = math.ceil(4 * (theMeasure.emotion_density - minMeasureDensity) / (maxMeasureDensity - minMeasureDensity))
@@ -131,7 +131,7 @@ class Theme:
                     (counts, wordCount) = self.calculateCounts(aChunk)
                     thePitch = round(6 * ((counts[melody.tag] / wordCount) - minMeasureDensity / (maxMeasureDensity - minMeasureDensity))) % 7
                     theMeasure.notes.append(PITCH_RANK[thePitch])
-                    print(theMeasure.notes)
+                    #print(theMeasure.notes)
 
                 #theMeasure.notes = choice(PITCH_RANK, theMeasure.num_notes, p=(PROB_MAP[pitchIndex:] + PROB_MAP[:pitchIndex]))
 

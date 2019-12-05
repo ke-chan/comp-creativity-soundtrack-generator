@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Hyperspace by HTML5 UP</title>
+		<title>TransProse 2.0</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -19,10 +19,10 @@
 				<div class="inner">
 					<nav>
 						<ul>
-							<li><a href="#intro">Welcome</a></li>
-							<li><a href="#one">Who we are</a></li>
-							<li><a href="#two">What we do</a></li>
-							<li><a href="#three">Get in touch</a></li>
+							<li><a href="#intro">Overview</a></li>
+							<li><a href="#one">Methods</a></li>
+							<li><a href="#two">Results and Output</a></li>
+							<li><a href="#three">About Us</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -34,9 +34,13 @@
 				<!-- Intro -->
 					<section id="intro" class="wrapper style1 fullscreen fade-up">
 						<div class="inner">
-							<h1>Hyperspace</h1>
-							<p>Just another fine responsive site template designed by <a href="http://html5up.net">HTML5 UP</a><br />
-							and released for free under the <a href="http://html5up.net/license">Creative Commons</a>.</p>
+							<h1>TransProse 2.0</h1>
+							<p>TransProse 2.0 is an extension of prior <a href="https://arxiv.org/pdf/1403.2124.pdf">work</a> by Hannah Davis
+								Said Mohammed that generates music from literature. We've recreated the original model by Davis and added harmonization,
+								as well as connected the system to <a href="https://magenta.tensorflow.org/">Magenta</a> which takes a MIDI primer 
+								and generates contiuations of the music. Our goal is to generate leitmotifs for characters based off of descriptions of 
+								the character
+							</p>
 							<ul class="actions">
 								<li><a href="#one" class="button scrolly">Learn more</a></li>
 							</ul>
@@ -49,11 +53,8 @@
 							<a href="#" class="image"><img src="images/pic01.jpg" alt="" data-position="center center" /></a>
 							<div class="content">
 								<div class="inner">
-									<h2>Sed ipsum dolor</h2>
-									<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
-									<ul class="actions">
-										<li><a href="generic.html" class="button">Learn more</a></li>
-									</ul>
+									<h2>Text Pre-Processing</h2>
+									<p>We are able to read text from a text file or a URL of a Wikia page for a character. Taking the text as input, we clean it of all punctuation and stop words.</p>
 								</div>
 							</div>
 						</section>
@@ -61,11 +62,13 @@
 							<a href="#" class="image"><img src="images/pic02.jpg" alt="" data-position="top center" /></a>
 							<div class="content">
 								<div class="inner">
-									<h2>Feugiat consequat</h2>
-									<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
-									<ul class="actions">
-										<li><a href="generic.html" class="button">Learn more</a></li>
-									</ul>
+									<h2>Emotional Densities</h2>
+									<p>With the filtered list of words, we examine each word and compare it against the
+										<a href="https://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm">NRC Emotion Lexicon</a>
+										to count the number of words at are associated with positive and negative connotations, as well as emotions
+										such as fear, anger, trust, sadness, disgust, anticipation, joy, and surprise. From there, densities of a particular emotion
+										are calculated against the overall number of words.
+									</p>
 								</div>
 							</div>
 						</section>
@@ -75,113 +78,95 @@
 								<div class="inner">
 									<h2>Ultricies aliquam</h2>
 									<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
-									<ul class="actions">
-										<li><a href="generic.html" class="button">Learn more</a></li>
-									</ul>
 								</div>
 							</div>
 						</section>
+						<section>
+								<a href="#" class="image"><img src="images/pic01.jpg" alt="" data-position="center center" /></a>
+								<div class="content">
+									<div class="inner">
+										<h2>Sed ipsum dolor</h2>
+										<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
+									</div>
+								</div>
+							</section>
+							<section>
+								<a href="#" class="image"><img src="images/pic02.jpg" alt="" data-position="top center" /></a>
+								<div class="content">
+									<div class="inner">
+										<h2>Feugiat consequat</h2>
+										<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
+									</div>
+								</div>
+							</section>
+							<section>
+								<a href="#" class="image"><img src="images/pic03.jpg" alt="" data-position="25% 25%" /></a>
+								<div class="content">
+									<div class="inner">
+										<h2>Ultricies aliquam</h2>
+										<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
+										<ul class="actions">
+											<li><a href="generic.html" class="button">Learn more</a></li>
+										</ul>
+									</div>
+								</div>
+							</section>
 					</section>
 
 				<!-- Two -->
 					<section id="two" class="wrapper style3 fade-up">
 						<div class="inner">
-							<h2>What we do</h2>
-							<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus, lacus eget hendrerit bibendum, urna est aliquam sem, sit amet imperdiet est velit quis lorem.</p>
+							<h2>Results and Output</h2>
+							<p>Listen below for example output from various character descriptions as input</p>
 							<div class="features">
 								<section>
 									<span class="icon solid major fa-code"></span>
-									<h3>Lorem ipsum amet</h3>
-									<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
+									<h3>Luke Skywalker</h3>
+									<p><a href="https://starwars.fandom.com/wiki/Luke_Skywalker">Luke Skywalker from Star Wars</a></p>
 								</section>
 								<section>
 									<span class="icon solid major fa-lock"></span>
-									<h3>Aliquam sed nullam</h3>
-									<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
+									<h3>Darth Sidious</h3>
+									<p><a href="https://starwars.fandom.com/wiki/Darth_Sidious">Darth Sidious (The Emperor) from Star Wars</a></p>
 								</section>
 								<section>
 									<span class="icon solid major fa-cog"></span>
-									<h3>Sed erat ullam corper</h3>
-									<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
+									<h3>Indiana Jones</h3>
+									<p><a href="https://indianajones.fandom.com/wiki/Indiana_Jones">Indiana Jones from Indiana Jones</a></p>								
 								</section>
 								<section>
 									<span class="icon solid major fa-desktop"></span>
-									<h3>Veroeros quis lorem</h3>
-									<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
+									<h3>Captain America</h3>
+									<p><a href="https://marvelcinematicuniverse.fandom.com/wiki/Captain_America">Captain America from the Marvel Cinematic Universe</a></p>								
 								</section>
 								<section>
 									<span class="icon solid major fa-link"></span>
-									<h3>Urna quis bibendum</h3>
-									<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
+									<h3>Bruce Wayne</h3>
+									<p><a href="https://dc.fandom.com/wiki/Batman_(Bruce_Wayne)">Bruce Wayne from DC Comics</a></p>							
 								</section>
 								<section>
 									<span class="icon major fa-gem"></span>
-									<h3>Aliquam urna dapibus</h3>
-									<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
-								</section>
+									<h3>Harry Potter</h3>
+									<p><a href="https://harrypotter.fandom.com/wiki/Harry_Potter">Harry Potter from the Harry Potter Universe</a></p>
+								</section>									
 							</div>
-							<ul class="actions">
-								<li><a href="generic.html" class="button">Learn more</a></li>
-							</ul>
 						</div>
 					</section>
 
 				<!-- Three -->
 					<section id="three" class="wrapper style1 fade-up">
 						<div class="inner">
-							<h2>Get in touch</h2>
-							<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus, lacus eget hendrerit bibendum, urna est aliquam sem, sit amet imperdiet est velit quis lorem.</p>
-							<div class="split style1">
-								<section>
-									<form method="post" action="#">
-										<div class="fields">
-											<div class="field half">
-												<label for="name">Name</label>
-												<input type="text" name="name" id="name" />
-											</div>
-											<div class="field half">
-												<label for="email">Email</label>
-												<input type="text" name="email" id="email" />
-											</div>
-											<div class="field">
-												<label for="message">Message</label>
-												<textarea name="message" id="message" rows="5"></textarea>
-											</div>
-										</div>
-										<ul class="actions">
-											<li><a href="" class="button submit">Send Message</a></li>
-										</ul>
-									</form>
-								</section>
-								<section>
-									<ul class="contact">
-										<li>
-											<h3>Address</h3>
-											<span>12345 Somewhere Road #654<br />
-											Nashville, TN 00000-0000<br />
-											USA</span>
-										</li>
-										<li>
-											<h3>Email</h3>
-											<a href="#">user@untitled.tld</a>
-										</li>
-										<li>
-											<h3>Phone</h3>
-											<span>(000) 000-0000</span>
-										</li>
-										<li>
-											<h3>Social</h3>
-											<ul class="icons">
-												<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-												<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-												<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-												<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-												<li><a href="#" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-											</ul>
-										</li>
-									</ul>
-								</section>
-							</div>
+							<h2>About Us</h2>
+							<div class="inner1">
+									<p>TransProse 2.0 was built by:<br />Kevin Chan (kevinchan2019@u.northwestern.edu)<br/>Connor Bain (connorbain2015@u.northwestern.edu)</p>
+									<div class="inner medium" style="margin-bottom: 10px">
+										<a href="https://github.com/ke-chan/comp-creativity-soundtrack-generator" class="button">Source Code</a>
+									</div>
+									<div class="inner medium" style="margin-top: 30px">
+										<p>TransProse 2.0 leverages the following Libraries:<br />Pickle, Magenta, NumPy, Pandas,Math, Beautiful Soup, and Pretty MIDI</p>
+										<br>
+									</div>
+								</div>
 						</div>
 					</section>
 
