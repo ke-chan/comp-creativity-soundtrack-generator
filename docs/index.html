@@ -37,8 +37,8 @@
 							<h1>TransProse 2.0</h1>
 							<p>TransProse 2.0 is an extension of prior <a href="https://arxiv.org/pdf/1403.2124.pdf">work</a> by Hannah Davis
 								Said Mohammed that generates music from literature. We've recreated the original model by Davis and added harmonization,
-								as well as connected the system to <a href="https://magenta.tensorflow.org/">Magenta</a> which takes a MIDI primer 
-								and generates contiuations of the music. Our goal is to generate leitmotifs for characters based off of descriptions of 
+								as well as connected the system to <a href="https://magenta.tensorflow.org/">Magenta</a> which takes a MIDI primer
+								and generates contiuations of the music. Our goal is to generate leitmotifs for characters based off of descriptions of
 								the character
 							</p>
 							<ul class="actions">
@@ -76,8 +76,12 @@
 							<a href="#" class="image"><img src="images/pic03.jpg" alt="" data-position="25% 25%" /></a>
 							<div class="content">
 								<div class="inner">
-									<h2>Ultricies aliquam</h2>
-									<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
+									<h2>Musical Mode</h2>
+									<p>TransProse simplifies mode selection by limiting to two diatonic modes Major (Dorian) and Minor (Aeolian).
+									for simplicity, TransProse outputs either C Major or A Minor (the relative minor key of C Major), essentially a Key Signature
+									with no sharps or flats. Once the output is produced, a composer could transpose, or shift the key, of the theme.</p>
+									<p>Mode selection is calculated based on the ratio of negative to postive words in the entire text. A ratio of above 1
+										is mapped to C Major while a ratio of below 1 is mapped to A Minor.</p>
 								</div>
 							</div>
 						</section>
@@ -141,23 +145,23 @@
 								<section>
 									<span class="icon solid major fa-cog"></span>
 									<h3>Indiana Jones</h3>
-									<p><a href="https://indianajones.fandom.com/wiki/Indiana_Jones">Indiana Jones from Indiana Jones</a></p>								
+									<p><a href="https://indianajones.fandom.com/wiki/Indiana_Jones">Indiana Jones from Indiana Jones</a></p>
 								</section>
 								<section>
 									<span class="icon solid major fa-desktop"></span>
 									<h3>Captain America</h3>
-									<p><a href="https://marvelcinematicuniverse.fandom.com/wiki/Captain_America">Captain America from the Marvel Cinematic Universe</a></p>								
+									<p><a href="https://marvelcinematicuniverse.fandom.com/wiki/Captain_America">Captain America from the Marvel Cinematic Universe</a></p>
 								</section>
 								<section>
 									<span class="icon solid major fa-link"></span>
 									<h3>Bruce Wayne</h3>
-									<p><a href="https://dc.fandom.com/wiki/Batman_(Bruce_Wayne)">Bruce Wayne from DC Comics</a></p>							
+									<p><a href="https://dc.fandom.com/wiki/Batman_(Bruce_Wayne)">Bruce Wayne from DC Comics</a></p>
 								</section>
 								<section>
 									<span class="icon major fa-gem"></span>
 									<h3>Harry Potter</h3>
 									<p><a href="https://harrypotter.fandom.com/wiki/Harry_Potter">Harry Potter from the Harry Potter Universe</a></p>
-								</section>									
+								</section>
 							</div>
 						</div>
 					</section>
