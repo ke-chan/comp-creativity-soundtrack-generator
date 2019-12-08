@@ -35,7 +35,7 @@
 					<section id="intro" class="wrapper style1 fullscreen fade-up">
 						<div class="inner">
 							<h1>TransProse 2.0</h1>
-							<p>TransProse 2.0 is an extension of prior <a href="https://arxiv.org/pdf/1403.2124.pdf">work</a> by Hannah Davis
+							<p>TransProse 2.0 is an extension of prior <a href="https://arxiv.org/pdf/1403.2124.pdf">work</a> by Hannah Davis and
 								Said Mohammed that generates music from literature. We've recreated the original model by Davis and added harmonization,
 								as well as connected the system to <a href="https://magenta.tensorflow.org/">Magenta</a> which takes a MIDI primer
 								and generates contiuations of the music. Our goal is to generate leitmotifs for characters based off of descriptions of
@@ -156,7 +156,7 @@
 												<tr>
 													<th>Scale Degree</th>
 													<th>Name</th>
-													<th>Consonance Ranking (lower means more consonant)</th>
+													<th>Consonance Ranking <br>(lower means more consonant)</th>
 												</tr>
 												<tr>
 													<td>1</td>
@@ -215,7 +215,7 @@
 										meter. That is, there are four beats in a measure in a duple meter. However, the underlying priciple is easy to understand: the more
 									active the input text, the higher the tempo. The less active, the lower the tempo. The original TransProse system calculates this directly via
 									equation below:</p>
-									<img src="images/tempo_mapping.png"></img>
+									<img style="width:75%;" src="images/tempo_mapping.png"></img>
 									<p>However, because the authors make the max and min values dependent on their own corpus (which is not specified), we created a different
 										linear mapping that encodes the same sort of relationship. In essence, each piece starts with a tempo of 90 beats per minute. That tempo
 										is then modified by the ratio of active to passive densities in the input text.
