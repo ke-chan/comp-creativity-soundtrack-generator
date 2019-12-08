@@ -35,11 +35,11 @@
 					<section id="intro" class="wrapper style1 fullscreen fade-up">
 						<div class="inner">
 							<h1>LUKE: Leitmotifs Using Known Emotions</h1>
-							<p>LUKE is an extension of prior <a href="https://arxiv.org/pdf/1403.2124.pdf">work</a> by Hannah Davis and
+							<p>LUKE is an extension of prior work, <a href="https://arxiv.org/pdf/1403.2124.pdf">TransProse</a>, by Hannah Davis and
 								Said Mohammed that generates music from literature. We've recreated the original model by Davis and
 								connected the system to <a href="https://magenta.tensorflow.org/">Magenta</a> which takes a MIDI primer
 								and generates continuations of the music. Our goal is to generate leitmotifs for characters based off of descriptions of
-								the character
+								the character to create a basis for soundtrack music.
 							</p>
 							<ul class="actions">
 								<li><a href="#one" class="button scrolly">Learn more</a></li>
@@ -49,6 +49,14 @@
 
 				<!-- One -->
 					<section id="one" class="wrapper style2 spotlights">
+						<section>
+							<div class="content">
+								<div class="inner">
+									<h2>The Music Generation Method</h2>
+									<p>Scroll through to get a high level overview of the process we used to generate music from text</p>
+								</div>
+							</div>
+						</section>
 						<section>
 							<a href="#" class="image"><img src="images/pic01.jpg" alt="" data-position="center center" /></a>
 							<div class="content">
@@ -89,7 +97,7 @@
 								<div class="content">
 									<div class="inner">
 										<h2>Melodic Structure</h2>
-										<p>The original LUKE algorithm maps text features to three simultaneous melodies. The first melody represents
+										<p>The original TransProse algorithm maps text features to three simultaneous melodies. The first melody represents
 										the overall emotional arc of the text, while the 2nd and 3rd melodies represent the 1st and 2nd most prevelant coded emotions
 										in the text. For example, a text might have an overall emotional melody, a melody representing the anger as tracked over the entire
 										text, and a melody represnting sadness over the entire text.</p>
@@ -222,9 +230,8 @@
 								<div class="content">
 									<div class="inner">
 										<h2>Magenta</h2>
-										<p>After we generated a midi primer from the above process, we pass it to pretrained models from Project Magenta, an open source ML tool to help join machine learning and music.
-											We used Magenta to generate extensions of our primer using the Melody RNN model, the Polyphony RNN model, and the Performnace RNN Model. Listen to our generated primer
-											and the different outputs of Magenta in the section below.
+										<p>From the musical information calculated above, a MIDI file is generated using Pretty MIDI and passed to pretrained models from Project Magenta, an open source ML libary to help join machine learning and music.
+											We used Magenta to generate extensions of our primer using the Melody RNN model, the Polyphony RNN model, and the Performnace RNN Model. 
 										</p>
 									</figure>
 									</div>
