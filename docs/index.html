@@ -36,8 +36,8 @@
 						<div class="inner">
 							<h1>TransProse 2.0</h1>
 							<p>TransProse 2.0 is an extension of prior <a href="https://arxiv.org/pdf/1403.2124.pdf">work</a> by Hannah Davis
-								Said Mohammed that generates music from literature. We've recreated the original model by Davis and added harmonization,
-								as well as connected the system to <a href="https://magenta.tensorflow.org/">Magenta</a> which takes a MIDI primer
+								Said Mohammed that generates music from literature. We've recreated the original model by Davis and
+								connected the system to <a href="https://magenta.tensorflow.org/">Magenta</a> which takes a MIDI primer
 								and generates contiuations of the music. Our goal is to generate leitmotifs for characters based off of descriptions of
 								the character
 							</p>
@@ -227,7 +227,11 @@
 								<div class="content">
 									<div class="inner">
 										<h2>Magenta</h2>
-										<p>!!!</p>
+										<p>After we generated a midi primer from the above process, we pass it to pretrained models from Project Magenta, an open source ML tool to help join machine learning and music.
+											We used Magenta to generate extensions of our primer using the Melody RNN model, the Polyphony RNN model, and the Performnace RNN Model. Listen to our generated primer
+											and the different outputs of Magenta in the section below.
+										</p>
+									</figure>
 									</div>
 								</div>
 							</section>
@@ -237,36 +241,173 @@
 					<section id="two" class="wrapper style3 fade-up">
 						<div class="inner">
 							<h2>Results and Output</h2>
-							<p>Listen below for example output from various character descriptions as input</p>
+							<p>Listen below for example output from various character descriptions as input. The primer is played at the beginning of the recording
+								and the generated output is at the end of the recording
+							</p>
 							<div class="features">
 								<section>
 									<span class="icon solid major fa-code"></span>
 									<h3>Luke Skywalker</h3>
 									<p><a href="https://starwars.fandom.com/wiki/Luke_Skywalker">Luke Skywalker from Star Wars</a></p>
 									<figure style="text-align: center;">
-											<figcaption>Original Recording</figcaption>
+										<figcaption>Primer</figcaption>
+										<audio
+											controls
+											src="audio/Luke_Skywalker/luke_primer.mp3">
+												Your browser does not support the
+												<code>audio</code> element.
+										</audio>
+									</figure>
+									<figure style="text-align: center;">
+											<figcaption>Melody RNN</figcaption>
 											<audio
 												controls
-												src="clean_01.mp3">
+												src="audio/Luke_Skywalker/luke_melody.mp3">
 													Your browser does not support the
 													<code>audio</code> element.
 											</audio>
 									</figure>
+									<figure style="text-align: center;">
+										<figcaption>Performance RNN</figcaption>
+										<audio
+											controls
+											src="audio/Luke_Skywalker/luke_performance.mp3">
+												Your browser does not support the
+												<code>audio</code> element.
+										</audio>
+								</figure>
+								<figure style="text-align: center;">
+									<figcaption>Polyphony RNN</figcaption>
+									<audio
+										controls
+										src="audio/Luke_Skywalker/luke_polyphony.mp3">
+											Your browser does not support the
+											<code>audio</code> element.
+									</audio>
+								</figure>
 								</section>
 								<section>
 									<span class="icon solid major fa-lock"></span>
 									<h3>Darth Sidious</h3>
-									<p><a href="https://starwars.fandom.com/wiki/Darth_Sidious">Darth Sidious (The Emperor) from Star Wars</a></p>
+									<p><a href="https://starwars.fandom.com/wiki/Darth_Sidious">The Emperor from Star Wars</a></p>
+									<figure style="text-align: center;">
+										<figcaption>Primer</figcaption>
+										<audio
+											controls
+											src="clean_01.mp3">
+												Your browser does not support the
+												<code>audio</code> element.
+										</audio>
+									</figure>
+									<figure style="text-align: center;">
+										<figcaption>Melody RNN</figcaption>
+										<audio
+											controls
+											src="clean_01.mp3">
+												Your browser does not support the
+												<code>audio</code> element.
+										</audio>
+									</figure>
+									<figure style="text-align: center;">
+										<figcaption>Performance RNN</figcaption>
+										<audio
+											controls
+											src="clean_01.mp3">
+												Your browser does not support the
+												<code>audio</code> element.
+										</audio>
+									</figure>
+									<figure style="text-align: center;">
+										<figcaption>Polyphony RNN</figcaption>
+										<audio
+											controls
+											src="clean_01.mp3">
+												Your browser does not support the
+												<code>audio</code> element.
+										</audio>
+									</figure>
 								</section>
 								<section>
 									<span class="icon solid major fa-link"></span>
 									<h3>Bruce Wayne</h3>
 									<p><a href="https://dc.fandom.com/wiki/Batman_(Bruce_Wayne)">Bruce Wayne from DC Comics</a></p>
+									<figure style="text-align: center;">
+										<figcaption>Primer</figcaption>
+										<audio
+											controls
+											src="clean_01.mp3">
+												Your browser does not support the
+												<code>audio</code> element.
+										</audio>
+									</figure>
+									<figure style="text-align: center;">
+										<figcaption>Melody RNN</figcaption>
+										<audio
+											controls
+											src="clean_01.mp3">
+												Your browser does not support the
+												<code>audio</code> element.
+										</audio>
+									</figure>
+									<figure style="text-align: center;">
+										<figcaption>Performance RNN</figcaption>
+										<audio
+											controls
+											src="clean_01.mp3">
+												Your browser does not support the
+												<code>audio</code> element.
+										</audio>
+									</figure>
+									<figure style="text-align: center;">
+										<figcaption>Polyphony RNN</figcaption>
+										<audio
+											controls
+											src="clean_01.mp3">
+												Your browser does not support the
+												<code>audio</code> element.
+										</audio>
+									</figure>
 								</section>
 								<section>
 									<span class="icon major fa-gem"></span>
 									<h3>Harry Potter</h3>
-									<p><a href="https://harrypotter.fandom.com/wiki/Harry_Potter">Harry Potter from the Harry Potter Universe</a></p>
+									<p><a href="https://harrypotter.fandom.com/wiki/Harry_Potter">Harry Potter from Harry Potter</a></p>
+									<figure style="text-align: center;">
+										<figcaption>Primer</figcaption>
+										<audio
+											controls
+											src="clean_01.mp3">
+												Your browser does not support the
+												<code>audio</code> element.
+										</audio>
+									</figure>
+									<figure style="text-align: center;">
+										<figcaption>Melody RNN</figcaption>
+										<audio
+											controls
+											src="clean_01.mp3">
+												Your browser does not support the
+												<code>audio</code> element.
+										</audio>
+									</figure>
+									<figure style="text-align: center;">
+										<figcaption>Performance RNN</figcaption>
+										<audio
+											controls
+											src="clean_01.mp3">
+												Your browser does not support the
+												<code>audio</code> element.
+										</audio>
+									</figure>
+									<figure style="text-align: center;">
+										<figcaption>Polyphony RNN</figcaption>
+										<audio
+											controls
+											src="clean_01.mp3">
+												Your browser does not support the
+												<code>audio</code> element.
+										</audio>
+									</figure>
 								</section>
 							</div>
 						</div>
@@ -282,7 +423,7 @@
 										<a href="https://github.com/ke-chan/comp-creativity-soundtrack-generator" class="button">Source Code</a>
 									</div>
 									<div class="inner medium" style="margin-top: 30px">
-										<p>TransProse 2.0 leverages the following Libraries:<br />Pickle, Magenta, NumPy, Pandas,Math, Beautiful Soup, and Pretty MIDI</p>
+										<p>TransProse 2.0 leverages the following Libraries:<br />Pickle, Magenta, NumPy, Pandas,Math, Beautiful Soup, Subprocess, and Pretty MIDI</p>
 										<br>
 									</div>
 								</div>
