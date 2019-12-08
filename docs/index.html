@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>TransProse 2.0</title>
+		<title>LUKE: Leitmotifs Using Known Emotions</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -34,11 +34,11 @@
 				<!-- Intro -->
 					<section id="intro" class="wrapper style1 fullscreen fade-up">
 						<div class="inner">
-							<h1>TransProse 2.0</h1>
-							<p>TransProse 2.0 is an extension of prior <a href="https://arxiv.org/pdf/1403.2124.pdf">work</a> by Hannah Davis and
+							<h1>LUKE: Leitmotifs Using Known Emotions</h1>
+							<p>LUKE is an extension of prior <a href="https://arxiv.org/pdf/1403.2124.pdf">work</a> by Hannah Davis and
 								Said Mohammed that generates music from literature. We've recreated the original model by Davis and
 								connected the system to <a href="https://magenta.tensorflow.org/">Magenta</a> which takes a MIDI primer
-								and generates contiuations of the music. Our goal is to generate leitmotifs for characters based off of descriptions of
+								and generates continuations of the music. Our goal is to generate leitmotifs for characters based off of descriptions of
 								the character
 							</p>
 							<ul class="actions">
@@ -77,11 +77,10 @@
 							<div class="content">
 								<div class="inner">
 									<h2>Musical Mode</h2>
-									<p>TransProse simplifies mode selection by limiting to two diatonic modes Major (Dorian) and Minor (Aeolian).
-									for simplicity, TransProse outputs either C Major or A Minor (the relative minor key of C Major), essentially a Key Signature
-									with no sharps or flats. Once the output is produced, a composer could transpose, or shift the key, of the theme.</p>
+									<p>LUKE simplifies mode selection by limiting to two diatonic modes Major (Dorian) and Minor (Aeolian).
+									for simplicity, LUKE outputs either C Major or C Minor. Once the output is produced, a composer could transpose, or shift the key, of the theme.</p>
 									<p>Mode selection is calculated based on the ratio of negative to postive words in the entire text. A ratio of above 1
-										is mapped to C Major while a ratio of below 1 is mapped to A Minor.</p>
+										is mapped to C Major while a ratio of below 1 is mapped to C Minor.</p>
 								</div>
 							</div>
 						</section>
@@ -90,7 +89,7 @@
 								<div class="content">
 									<div class="inner">
 										<h2>Melodic Structure</h2>
-										<p>The original TransProse algorithm maps text features to three simultaneous melodies. The first melody represents
+										<p>The original LUKE algorithm maps text features to three simultaneous melodies. The first melody represents
 										the overall emotional arc of the text, while the 2nd and 3rd melodies represent the 1st and 2nd most prevelant coded emotions
 										in the text. For example, a text might have an overall emotional melody, a melody representing the anger as tracked over the entire
 										text, and a melody represnting sadness over the entire text.</p>
@@ -98,7 +97,7 @@
 								</div>
 							</section>
 							<section>
-								<a href="#" class="image"><img src="images/main_melody_voicing.png" alt="" data-position="25% 25%" /></a>
+								<a href="#" class="image"><img src="images/pic03.jpg" alt="" data-position="25% 25%" /></a>
 								<div class="content">
 									<div class="inner">
 										<h2>Melodic Voicing</h2>
@@ -125,19 +124,15 @@
 								<div class="content">
 									<div class="inner">
 										<h2>Note Durations</h2>
-										<p>Each melody is split into four sections that map to four sections of the novel: beginning, early middle, late middle, and conclusion. TransProse also
+										<p>Each melody is split into four sections that map to four sections of the novel: beginning, early middle, late middle, and conclusion. LUKE also
 											simplifies the phrase structure in that each section is reprented by exactly four measures. This results in a theme of exactly 16 measures in length.
 											In this manner, each measure represents the corresponding sub-section of the input text.</p>
 
-										<p>Each musical note needs to represent a specific length of time. TransProse purposefully limits itself to notes across 5 different durations:
+										<p>Each musical note needs to represent a specific length of time. LUKE purposefully limits itself to notes across 5 different durations:
 										whole notes, half notes, quarter notes, eighth notes, and sixteenth notes. In essence, the system aims to represent high emotional content
 										with many notes, while lower emotional content is mapped to fewer notes. To do this, we create a piecewise linear mapping by aking the interval between
 								 		maximum emotional density and minimum emotional density and splitting it into five equal parts. Thus, for each measure (or subsection of the input text),
 										the density is mapped to a specific number of notes depending on within which interval the density lies.</p>
-										<ul class="actions">
-											<li><a href="generic.html" class="button">Learn more</a></li>
-											<li><a href="generic.html" class="button">Test</a></li>
-										</ul>
 									</div>
 								</div>
 							</section>
@@ -213,7 +208,7 @@
 										<h2>Tempo</h2>
 										<p>TranProse makes a number of simplifications in order to set a tempo for the melodic lines. Firstly, it assumes a common time
 										meter. That is, there are four beats in a measure in a duple meter. However, the underlying priciple is easy to understand: the more
-									active the input text, the higher the tempo. The less active, the lower the tempo. The original TransProse system calculates this directly via
+									active the input text, the higher the tempo. The less active, the lower the tempo. The original LUKE system calculates this directly via
 									equation below:</p>
 									<img style="width:75%;" src="images/tempo_mapping.png"></img>
 									<p>However, because the authors make the max and min values dependent on their own corpus (which is not specified), we created a different
@@ -241,7 +236,7 @@
 					<section id="two" class="wrapper style3 fade-up">
 						<div class="inner">
 							<h2>Results and Output</h2>
-							<p>Listen below for example output from various character descriptions as input. The primer is played at the beginning of the recording
+							<p>Listen below for example output from various character descriptions as input. For the Performance RNN and Polyphony RNN model, the primer is played at the beginning of the recording
 								and the generated output is at the end of the recording
 							</p>
 							<div class="features">
@@ -371,7 +366,7 @@
 								<section>
 									<span class="icon major fa-gem"></span>
 									<h3>Link</h3>
-									<p><a href="https://zelda.fandom.com/wiki/Link">Link from Legend of Zelda</a></p>
+									<p><a href="https://zelda.fandom.com/wiki/Link">Link from The Legend of Zelda</a></p>
 									<figure style="text-align: center;">
 										<figcaption>Primer</figcaption>
 										<audio
@@ -418,12 +413,12 @@
 						<div class="inner">
 							<h2>About Us</h2>
 							<div class="inner1">
-									<p>TransProse 2.0 was built by:<br />Kevin Chan (kevinchan2019@u.northwestern.edu)<br/>Connor Bain (connorbain2015@u.northwestern.edu)</p>
+									<p>LUKE was built by:<br />Kevin Chan (kevinchan2019@u.northwestern.edu)<br/>Connor Bain (connorbain2015@u.northwestern.edu)</p>
 									<div class="inner medium" style="margin-bottom: 10px">
 										<a href="https://github.com/ke-chan/comp-creativity-soundtrack-generator" class="button">Source Code</a>
 									</div>
 									<div class="inner medium" style="margin-top: 30px">
-										<p>TransProse 2.0 leverages the following Libraries:<br />Pickle, Magenta, NumPy, Pandas,Math, Beautiful Soup, Subprocess, and Pretty MIDI</p>
+										<p>LUKE uses the following Libraries:<br />Pickle, Magenta, NumPy, Pandas, Math, Beautiful Soup, Subprocess, and Pretty MIDI</p>
 										<br>
 									</div>
 								</div>
