@@ -6,7 +6,7 @@ import pickle
 PROB_MAP = [0.5, 0.15, 0.075, 0.025, 0.025, 0.075, 0.15]
 PITCH_RANK = [0, 4, 2, 5, 1, 3, 6]
 PITCH_MAP_MAJOR = ["C", "D", "E", "F", "G", "A", "B"]
-PITCH_MAP_MINOR = ["C", "D", "Eb", "F", "G", "Ab", "Bb"]
+PITCH_MAP_MINOR = ["C", "D", "Eb", "F", "G", "Ab", "B"]
 #PITCH_MAP_MINOR = ["A", "B", "C", "D", "E", "F", "G"]
 
 JS_MAX = 1 # FIXME: this is not a good estimate
