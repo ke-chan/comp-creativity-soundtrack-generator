@@ -48,6 +48,7 @@ class Theme:
             self.key = "major"
         else:
             self.key = "minor"
+        print(self.key)
         return self.key
 
     def calculateCounts(self, theText):
