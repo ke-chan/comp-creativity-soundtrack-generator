@@ -40,4 +40,3 @@ def gen_midi(melodies, tempo):
     # Write out the MIDI data
     music_gen.write('generated_melody_primer.mid')
 
-#gen_midi(theOutput["melodies"],60)
