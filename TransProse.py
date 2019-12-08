@@ -134,7 +134,7 @@ class Theme:
                     tempList.append(counts[melody.tag] / wordCount)
 
             for theMeasure in melody.measures:
-                for aChunk in np.array_split(theText.theText, theMeasure.num_notes):
+                for aChunk in np.array_split(theMeasure.theText, theMeasure.num_notes):
                     thePitch = math.floor(6 * ((counts[melody.tag] / wordCount) - min(tempList) / (max(tempList) - min(tempList))))
                     print(thePitch)
                     theMeasure.notes.append(PITCH_RANK[thePitch])
