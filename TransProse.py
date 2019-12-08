@@ -132,6 +132,7 @@ class Theme:
                 for aChunk in np.array_split(theMeasure.theText, theMeasure.num_notes):
                     (counts, wordCount) = self.calculateCounts(aChunk)
                     thePitch = math.floor(6 * ((counts[melody.tag] / wordCount) - minMeasureDensity / (maxMeasureDensity - minMeasureDensity)))
+                    print(thePitch)
                     theMeasure.notes.append(PITCH_RANK[thePitch])
 
                 print(theMeasure.notes)
