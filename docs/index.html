@@ -89,17 +89,34 @@
 								<a href="#" class="image"><img src="images/pic01.jpg" alt="" data-position="center center" /></a>
 								<div class="content">
 									<div class="inner">
-										<h2>Sed ipsum dolor</h2>
-										<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
+										<h2>Melodic Structure</h2>
+										<p>The original TransProse algorithm maps text features to three simultaneous melodies. The first melody represents
+										the overall emotional arc of the text, while the 2nd and 3rd melodies represent the 1st and 2nd most prevelant coded emotions
+										in the text. For example, a text might have an overall emotional melody, a melody representing the anger as tracked over the entire
+										text, and a melody represnting sadness over the entire text.</p>
 									</div>
 								</div>
 							</section>
 							<section>
-								<a href="#" class="image"><img src="images/pic02.jpg" alt="" data-position="top center" /></a>
+								<a href="#" class="image"><img src="images/main_melody_voicing.png" alt="" data-position="25% 25%" /></a>
 								<div class="content">
 									<div class="inner">
-										<h2>Feugiat consequat</h2>
-										<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
+										<h2>Melodic Voicing</h2>
+										<p>The voicing of each melody, in other words, what octave on a piano the melody will traverse, is proportional to the difference between
+											the joy and sadness densities of the text. The voicing of the main melodic line is calculated via equation to the left.</p>
+
+										<p>Here, <em>JS</em> represents the difference between the Joy and Sadness densities in the input text. <em>JS</em><sub>min</sub> represents
+											the minimum <em>JS</em> value across a corpus of texts that the authors analyzed while <em>JS</em><sub>max</sub> represents the max across
+											that corpus.</p>
+
+										<p>This guarantees that the overall melodic voice (<em>M</em><sub>0</sub>) is linearly mapped to either octave 4, 5, or 6 on a piano keyboard. The second two melodic
+											voices are then calculated based off the octave of <em>M</em><sub>0</sub>.</p>
+
+										<img src="images/second_melodic_voicing.png" />
+
+										<p>In other words, the octave of <em>M</em><sub>1</sub> is an octave higher than <em>M</em><sub>0</sub> if the emotion it represents is
+											a positive emotion (Joy or Trust), an octave lower if the emotion it represents is negative (Anger, Fear, Sadness, or Disgust), and the
+											same if the emotion it represents is Surprise or Anticipation.</p>
 									</div>
 								</div>
 							</section>
@@ -107,11 +124,110 @@
 								<a href="#" class="image"><img src="images/pic03.jpg" alt="" data-position="25% 25%" /></a>
 								<div class="content">
 									<div class="inner">
-										<h2>Ultricies aliquam</h2>
-										<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
+										<h2>Note Durations</h2>
+										<p>Each melody is split into four sections that map to four sections of the novel: beginning, early middle, late middle, and conclusion. TransProse also
+											simplifies the phrase structure in that each section is reprented by exactly four measures. This results in a theme of exactly 16 measures in length.
+											In this manner, each measure represents the corresponding sub-section of the input text.</p>
+
+										<p>Each musical note needs to represent a specific length of time. TransProse purposefully limits itself to notes across 5 different durations:
+										whole notes, half notes, quarter notes, eighth notes, and sixteenth notes. In essence, the system aims to represent high emotional content
+										with many notes, while lower emotional content is mapped to fewer notes. To do this, we create a piecewise linear mapping by aking the interval between
+								 		maximum emotional density and minimum emotional density and splitting it into five equal parts. Thus, for each measure (or subsection of the input text),
+										the density is mapped to a specific number of notes depending on within which interval the density lies.</p>
 										<ul class="actions">
 											<li><a href="generic.html" class="button">Learn more</a></li>
+											<li><a href="generic.html" class="button">Test</a></li>
 										</ul>
+									</div>
+								</div>
+							</section>
+							<section>
+								<a href="#" class="image"><img src="images/pic03.jpg" alt="" data-position="25% 25%" /></a>
+								<div class="content">
+									<div class="inner">
+										<h2>Pitch Selection</h2>
+									<p>Until now, we have forgone a discussion of what might be the most important part of melody composition: pitch. Just as duration is calculated based
+										on the correpsonding subsection of the input text, so is pitch. The underlying idea is that more consonant pitches in the key are mapped to lower emotion
+										densities while less consonant pitches are mapped to higher emotion densities.</p>
+										<p>Consonance is piecewise mapped similar to note density, except it is based on the idea of scale degrees across the corresponding Major or Minor scale.
+											Each of the 7 notes of a Major or Minor scale is referred to as a <em>scale degree</em> where, due to the harmonic series, most Western musicians
+											hear as more consonant or less consonant in that key.</p>
+											<table style="width:100%">
+												<tr>
+													<th>Scale Degree</th>
+													<th>Name</th>
+													<th>Consonance Ranking (lower means more consonant)</th>
+												</tr>
+												<tr>
+													<td>1</td>
+													<td>Tonic</td>
+													<td>1</td>
+												</tr>
+												<tr>
+													<td>2</td>
+													<td>Supertonic</td>
+													<td>5</td>
+												</tr>
+												<tr>
+													<td>3</td>
+													<td>Mediant</td>
+													<td>3</td>
+												</tr>
+												<tr>
+													<td>4</td>
+													<td>Subdominant</td>
+													<td>6</td>
+												</tr>
+												<tr>
+													<td>5</td>
+													<td>Dominant</td>
+													<td>2</td>
+												</tr>
+												<tr>
+													<td>6</td>
+													<td>Submediant</td>
+													<td>4</td>
+												</tr>
+												<tr>
+													<td>7</td>
+													<td>Subtonic (in minor)</td>
+													<td>7</td>
+												</tr>
+												<tr>
+													<td>7</td>
+													<td>Leading Tone (in major)</td>
+													<td>7</td>
+												</tr>
+											</table>
+									<!--	<ul class="actions">
+											<li><a href="generic.html" class="button">Learn more</a></li>
+											<li><a href="generic.html" class="button">Test</a></li>
+										</ul> -->
+									</div>
+								</div>
+							</section>
+							<section>
+								<a href="#" class="image"><img src="images/pic03.jpg" alt="" data-position="25% 25%" /></a>
+								<div class="content">
+									<div class="inner">
+										<h2>Tempo</h2>
+										<p>TranProse makes a number of simplifications in order to set a tempo for the melodic lines. Firstly, it assumes a common time
+										meter. That is, there are four beats in a measure in a duple meter. However, the underlying priciple is easy to understand: the more
+									active the input text, the higher the tempo. The less active, the lower the tempo. The original TransProse system calculates this directly via
+									equation below:</p>
+									<img src="images/tempo_mapping.png"></img>
+									<p>However, because the authors make the max and min values dependent on their own corpus (which is not specified), we created a different
+										linear mapping that encodes the same sort of relationship. In essence, each piece starts with a tempo of 90 beats per minute. That tempo
+										is then modified by the ratio of active to passive densities in the input text.
+									</div>
+								</div>
+							</section>
+							<section>
+								<a href="#" class="image"><img src="images/pic03.jpg" alt="" data-position="25% 25%" /></a>
+								<div class="content">
+									<div class="inner">
+										<h2>Magenta</h2>
+										<p>!!!</p>
 									</div>
 								</div>
 							</section>
@@ -141,16 +257,6 @@
 									<span class="icon solid major fa-lock"></span>
 									<h3>Darth Sidious</h3>
 									<p><a href="https://starwars.fandom.com/wiki/Darth_Sidious">Darth Sidious (The Emperor) from Star Wars</a></p>
-								</section>
-								<section>
-									<span class="icon solid major fa-cog"></span>
-									<h3>Indiana Jones</h3>
-									<p><a href="https://indianajones.fandom.com/wiki/Indiana_Jones">Indiana Jones from Indiana Jones</a></p>
-								</section>
-								<section>
-									<span class="icon solid major fa-desktop"></span>
-									<h3>Captain America</h3>
-									<p><a href="https://marvelcinematicuniverse.fandom.com/wiki/Captain_America">Captain America from the Marvel Cinematic Universe</a></p>
 								</section>
 								<section>
 									<span class="icon solid major fa-link"></span>
