@@ -87,7 +87,7 @@ class Theme:
         # Now we set the octaves for each Melody
         for melody in self.melodies:
             if melody.tag == "overall":
-                melody.octave = MIN_OCTAVE + round(((JS - JS_MIN)*(MAX_OCTAVE - MIN_OCTAVE)) / (JS_MAX - JS_MIN))
+                melody.octave = MIN_OCTAVE + round(((JS - -0.1)*(MAX_OCTAVE - MIN_OCTAVE)) / (0.3 - -0.1))
                 M0 = melody.octave
             elif melody.tag == "joy" or melody.tag == "trust":
                 melody.octave = M0 + 1
@@ -133,7 +133,8 @@ class Theme:
                     (counts, wordCount) = self.calculateCounts(aChunk)
                     thePitch = round(6 * ((counts[melody.tag] / wordCount) - minMeasureDensity / (maxMeasureDensity - minMeasureDensity))) % 7
                     theMeasure.notes.append(PITCH_RANK[thePitch])
-                    #print(theMeasure.notes)
+
+                print(theMeasure.notes)
 
                 #theMeasure.notes = choice(PITCH_RANK, theMeasure.num_notes, p=(PROB_MAP[pitchIndex:] + PROB_MAP[:pitchIndex]))
 
