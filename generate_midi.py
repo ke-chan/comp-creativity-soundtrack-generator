@@ -20,8 +20,6 @@ def gen_midi(melodies, tempo):
     music_gen =  pretty_midi.PrettyMIDI()
     piano_program = pretty_midi.instrument_name_to_program("acoustic grand piano")
     piano = pretty_midi.Instrument(program=piano_program)
-    #string_program = pretty_midi.instrument_name_to_program("string ensemble 1")
-    #string_ens = pretty_midi.Instrument(program=string_program)
     for melody in melodies:
         runtime = 0
         for n in melody:
@@ -34,7 +32,7 @@ def gen_midi(melodies, tempo):
             piano.notes.append(note)
             #string_ens.notes.append(note)
             runtime += length
-    # Add the cello instrument to the PrettyMIDI object
+    # Add the instrument to the PrettyMIDI object
     music_gen.instruments.append(piano)
     #music_gen.instruments.append(string_ens)
     # Write out the MIDI data
