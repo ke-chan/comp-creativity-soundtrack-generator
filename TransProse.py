@@ -118,6 +118,7 @@ class Theme:
             #print(minMeasureDensity)
             #print(maxMeasureDensity)
 
+            tempList = []
             for theMeasure in melody.measures:
                 index = math.ceil(4 * (theMeasure.emotion_density - minMeasureDensity) / (maxMeasureDensity - minMeasureDensity))
                 #theMeasure = Measure((2**(index - 1)), counts[melody.tag] / wordCount)
@@ -128,14 +129,16 @@ class Theme:
                 # print(PROB_MAP[pitchIndex:] + PROB_MAP[:pitchIndex])
                 theMeasure.num_notes = (2**(index))
 
-                tempList = []
                 for aChunk in np.array_split(theMeasure.theText, theMeasure.num_notes):
                     (counts, wordCount) = self.calculateCounts(aChunk)
-                    thePitch = math.floor(6 * ((counts[melody.tag] / wordCount) - minMeasureDensity / (maxMeasureDensity - minMeasureDensity)))
+                    tempList.append(counts[melody.tag] / wordCount)
+
+            for theMeasure in melody.measures:
+                for aChunk in np.array_split(theText.theText, theMeasure.num_notes):
+                    thePitch = math.floor(6 * ((counts[melody.tag] / wordCount) - min(tempList) / (max(tempList) - min(tempList))))
                     print(thePitch)
                     theMeasure.notes.append(PITCH_RANK[thePitch])
 
-                print(theMeasure.notes)
 
                 #theMeasure.notes = choice(PITCH_RANK, theMeasure.num_notes, p=(PROB_MAP[pitchIndex:] + PROB_MAP[:pitchIndex]))
 
