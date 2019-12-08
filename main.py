@@ -5,7 +5,7 @@ import generate_midi
 import subprocess
 
 #theText = utility.get_words_from_text("test.txt")
-theText = utility.get_words_from_wikiurl("https://starwars.fandom.com/wiki/Darth_Sidious")
+theText = utility.get_words_from_wikiurl("https://naruto.fandom.com/wiki/Naruto_Uzumaki")
 
 theTheme = TransProse.Theme()
 
