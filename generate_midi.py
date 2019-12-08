@@ -2,6 +2,7 @@ import text_to_emotion as utility
 import TransProse
 import pretty_midi
 
+"""
 #theText = utility.get_words_from_wikiurl("https://starwars.fandom.com/wiki/Anakin_Skywalker")
 theText = utility.get_words_from_text("test.txt")
 
@@ -14,7 +15,7 @@ theOutput = theTheme.output()
 #print(theOutput)
 #print(theOutput["tempo"])
 #print(theOutput["melodies"])
-
+"""
 def gen_midi(melodies, tempo):
     music_gen =  pretty_midi.PrettyMIDI()
     piano_program = pretty_midi.instrument_name_to_program("acoustic grand piano")
@@ -39,4 +40,4 @@ def gen_midi(melodies, tempo):
     # Write out the MIDI data
     music_gen.write('generated_melody_primer.mid')
 
-gen_midi(theOutput["melodies"],60)
+#gen_midi(theOutput["melodies"],60)

@@ -1,8 +1,11 @@
 import text_to_emotion as utility
 import TransProse
 import pretty_midi
+import generate_midi
+import subprocess
 
-theText = utility.get_words_from_text("test.txt")
+#theText = utility.get_words_from_text("test.txt")
+theText = utility.get_words_from_wikiurl("https://starwars.fandom.com/wiki/Luke_Skywalker")
 
 theTheme = TransProse.Theme()
 
@@ -12,7 +15,7 @@ theOutput = theTheme.output()
 #print(theOutput["tempo"])
 #print(theOutput["melodies"])
 
+generate_midi.gen_midi(theOutput["melodies"],60)
 
-
-
-
+#Magenta Generate Melody
+subprocess.call(["melody_rnn_generate","--config=attention_rnn", "--bundle_file=./models/attention_rnn.mag", "--output_dir=./generated","--num_outputs=3","--num_steps=528","--primer_midi=generated_melody_primer.mid"])
