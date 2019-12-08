@@ -133,14 +133,14 @@ class Theme:
                     (counts, wordCount) = self.calculateCounts(aChunk)
                     tempList.append(counts[melody.tag] / wordCount)
 
-            print(tempList)
+            #print(tempList)
 
             for theMeasure in melody.measures:
                 for aChunk in np.array_split(theMeasure.theText, theMeasure.num_notes):
                     (counts, wordCount) = self.calculateCounts(aChunk)
 
                     thePitch = math.floor(6 * ((counts[melody.tag] / wordCount) - min(tempList)) / (max(tempList) - min(tempList)))
-                    print((counts[melody.tag] / wordCount),max(tempList), min(tempList),thePitch)
+                    #print((counts[melody.tag] / wordCount),max(tempList), min(tempList),thePitch)
                     theMeasure.notes.append(PITCH_RANK[thePitch])
 
 
