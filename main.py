@@ -12,8 +12,6 @@ theTheme = TransProse.Theme()
 theTheme.generate(theText)
 
 theOutput = theTheme.output()
-#print(theOutput["tempo"])
-#print(theOutput["melodies"])
 
 generate_midi.gen_midi(theOutput["melodies"],60)
 

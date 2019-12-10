@@ -14,10 +14,8 @@ def get_words_from_text(filename):
     tokenizer = RegexpTokenizer(r'\w+')
     word_tokens = tokenizer.tokenize(data)
     filtered_sentence = [w for w in word_tokens if not w in stop_words]
-    #print(filtered_sentence)
     return filtered_sentence
 
-#get_words_from_text("test.txt")
 
 def get_words_from_wikiurl(url):
     res = requests.get(url)

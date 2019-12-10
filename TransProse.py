@@ -3,38 +3,66 @@ import math
 from numpy.random import choice
 import pickle
 
-PROB_MAP = [0.5, 0.15, 0.075, 0.025, 0.025, 0.075, 0.15]
+# Consonance Ranking
 PITCH_RANK = [0, 4, 2, 5, 1, 3, 6]
+
+# C Major
 PITCH_MAP_MAJOR = ["C", "D", "E", "F", "G", "A", "B"]
+# C Minor
 PITCH_MAP_MINOR = ["C", "D", "Eb", "F", "G", "Ab", "Bb"]
-#PITCH_MAP_MINOR = ["A", "B", "C", "D", "E", "F", "G"]
 
-JS_MAX = 1 # FIXME: this is not a good estimate
-JS_MIN = 0 ## FIXME: SAME
+# Arbitrary Constants from TransProse
+JS_MAX = 1
+JS_MIN = 0
 
+# Hyperparameters that you should be able to change
 MAX_OCTAVE = 6
 MIN_OCTAVE = 4
-
 MEASURE_CHUNKS = 4
 PLOT_CHUNKS = 4
 
+# Load in the NRC Emotion Pickled Dictionary
 WORD_EMOTION_DICT = pickle.load(open('word_emotion_dict.pickle', 'rb'))
 
+# NRC Emotions Listing
 EMOTIONS = ["anticipation", "anger", "joy", "fear", "disgust", "sadness", "surprise", "trust", "overall", "positive", "negative"]
 
 class Theme:
+    """A Theme is the complete output of TransProse made up of constitunt melodies.
+
+    The __init__ method may be documented in either the class level
+    docstring, or as a docstring on the __init__ method itself.
+
+    Either form is acceptable, but the two should not be mixed. Choose one
+    convention to document the __init__ method and be consistent with it.
+
+    Attributes:
+        melodies (list): the list of Melodies .
+        key (str): the key the melody follows.
+        tempo (int): the tempo of the Theme
+
+    """
+
     def __init__(self):
         self.melodies = []
         self.key = ""
         self.tempo = 0
 
     def output(self):
+    """Method to output the Theme.
+
+    Returns:
+        A dictionary containing all of the relevant Theme data.
+
+    """
         outputDictionary = {}
         outputDictionary["tempo"] = self.tempo
         outputDictionary["melodies"] = [melody.output() for melody in self.melodies]
         return outputDictionary
 
     def setTempo(self, angerDensity, joyDensity, sadnessDensity, minTempo = 40, maxTempo = 180, minActive = -0.002, maxActive = 0.017):
+    """Calculate the tempo of the theme by using the active passive ratio """
+
         active = ((angerDensity + joyDensity) / 2)
         passive = sadnessDensity
         activityScore = active - passive
@@ -45,6 +73,8 @@ class Theme:
         return self.tempo
 
     def setKey(self, positiveCount, negativeCount):
+        """Set the key of Theme based on the postive:negative ratio. """
+
         if positiveCount > negativeCount:
             self.key = "major"
         else:
@@ -53,9 +83,11 @@ class Theme:
         return self.key
 
     def calculateCounts(self, theText):
+        """Scan through text and return NRC classified counts. """
         counts = {emotion: 0 for emotion in EMOTIONS}
         totalWordCount = len(theText)
 
+        # Loop through each word and classify word by word
         for word in theText:
             if word not in WORD_EMOTION_DICT:
                 continue
@@ -67,6 +99,8 @@ class Theme:
         return (counts, totalWordCount)
 
     def generate(self, theText, numMelodyLines = 3):
+        """Main method to generate the Theme. """
+
         (overallCounts, overallWordCount) = self.calculateCounts(theText)
         self.setTempo(overallCounts["anger"] / overallWordCount, overallCounts["joy"] / overallWordCount, overallCounts["sadness"] / overallWordCount)
         self.setKey(overallCounts["positive"], overallCounts["negative"])
@@ -84,7 +118,7 @@ class Theme:
 
         JS = (overallCounts["joy"] - overallCounts["sadness"]) / overallWordCount
         M0 = 0
-        # Now we set the octaves for each Melody
+        # Now we set the voicing octaves for each Melody
         for melody in self.melodies:
             if melody.tag == "overall":
                 melody.octave = MIN_OCTAVE + round(((JS - -0.1)*(MAX_OCTAVE - MIN_OCTAVE)) / (0.3 - -0.1))
@@ -96,57 +130,51 @@ class Theme:
             else:
                 melody.octave = M0
 
+        # Split the input text into Plot chunks
         plotChunks = np.array_split(theText, PLOT_CHUNKS)
         plotChunkCounts = []
         for melodyChunk in plotChunks:
             plotChunkCounts.append(self.calculateCounts(melodyChunk))
 
+        # For each melody, go through and generate
         for melody in self.melodies:
+
+            # Find the min/max densities of chunks
             chunkDensities = []
             for chunkCount in plotChunkCounts:
                 chunkDensities.append(chunkCount[0][melody.tag] / chunkCount[1])
 
+            # Go through each plot chunk and measure and generate everything except Note selection
             for plotChunk in plotChunks:
                 for measureChunk in np.array_split(plotChunk, MEASURE_CHUNKS):
                     (counts, wordCount) = self.calculateCounts(measureChunk)
                     theMeasure = Measure(counts[melody.tag] / wordCount, melody.octave, measureChunk)
                     melody.measures.append(theMeasure)
 
+            # Find min and max densities for measure generation
             maxMeasureDensity = max([x.emotion_density for x in melody.measures])
             minMeasureDensity = min([x.emotion_density for x in melody.measures])
 
-            #print(minMeasureDensity)
-            #print(maxMeasureDensity)
-
+            # Find min and max densities for note generation
             tempList = []
             for theMeasure in melody.measures:
                 index = math.ceil(4 * (theMeasure.emotion_density - minMeasureDensity) / (maxMeasureDensity - minMeasureDensity))
-                #theMeasure = Measure((2**(index - 1)), counts[melody.tag] / wordCount)
-                # print(index)
-                # print(2**(index - 1))
-                # print(PITCH_RANK)
-                # print(theMeasure.num_notes)
-                # print(PROB_MAP[pitchIndex:] + PROB_MAP[:pitchIndex])
                 theMeasure.num_notes = (2**(index))
 
                 for aChunk in np.array_split(theMeasure.theText, theMeasure.num_notes):
                     (counts, wordCount) = self.calculateCounts(aChunk)
                     tempList.append(counts[melody.tag] / wordCount)
 
-            #print(tempList)
-
+            # Generate notes
             for theMeasure in melody.measures:
                 for aChunk in np.array_split(theMeasure.theText, theMeasure.num_notes):
                     (counts, wordCount) = self.calculateCounts(aChunk)
 
                     thePitch = math.floor(6 * ((counts[melody.tag] / wordCount) - min(tempList)) / (max(tempList) - min(tempList)))
-                    #print((counts[melody.tag] / wordCount),max(tempList), min(tempList),thePitch)
                     theMeasure.notes.append(PITCH_RANK[thePitch])
 
-
-                #theMeasure.notes = choice(PITCH_RANK, theMeasure.num_notes, p=(PROB_MAP[pitchIndex:] + PROB_MAP[:pitchIndex]))
-
 class Measure:
+    """Represents a single measure of a Melody.  """
     def __init__(self, density, octave, someText):
         self.num_notes = 0
         self.octave = octave
@@ -161,6 +189,8 @@ class Measure:
             return [(PITCH_MAP_MINOR[note] + str(self.octave), 4 / self.num_notes) for note in self.notes]
 
 class Melody:
+    """Represents a single melody within the Theme.  """
+
     def __init__(self, theKey, tag="overall"):
         self.measures = []
         self.tag = tag
@@ -172,6 +202,3 @@ class Melody:
         output = [measure.output(self.key) for measure in self.measures]
         # Flatten list and return value
         return [val for sublist in output for val in sublist]
-
-
-        #print([note for measure in output for note in measure.notes])
