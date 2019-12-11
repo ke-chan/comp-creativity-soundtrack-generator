@@ -3,7 +3,7 @@ import TransProse
 import pretty_midi
 
 def gen_midi(melodies, tempo):
-    music_gen =  pretty_midi.PrettpyMIDI()
+    music_gen =  pretty_midi.PrettyMIDI()
     piano_program = pretty_midi.instrument_name_to_program("acoustic grand piano")
     piano = pretty_midi.Instrument(program=piano_program)
     for melody in melodies:
