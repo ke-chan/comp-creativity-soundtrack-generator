@@ -39,9 +39,7 @@ class Theme:
     Attributes:
         melodies (list): the list of Melodies .
         key (str): the key the melody follows.
-        tempo (int): the tempo of the Theme
-
-    """
+        tempo (int): the tempo of the Theme"""
 
     def __init__(self):
         self.melodies = []
@@ -49,27 +47,27 @@ class Theme:
         self.tempo = 0
 
     def output(self):
-    """Method to output the Theme.
+        """Method to output the Theme.
+        Returns:
+        A dictionary containing all of the relevant Theme data."""
 
-    Returns:
-        A dictionary containing all of the relevant Theme data.
-
-    """
         outputDictionary = {}
         outputDictionary["tempo"] = self.tempo
         outputDictionary["melodies"] = [melody.output() for melody in self.melodies]
         return outputDictionary
 
-    def setTempo(self, angerDensity, joyDensity, sadnessDensity, minTempo = 40, maxTempo = 180, minActive = -0.002, maxActive = 0.017):
-    """Calculate the tempo of the theme by using the active passive ratio """
+    def setTempo(self, overallActive, overallPassive, actives, passives, minTempo = 40, maxTempo = 160):
+        """Calculate the tempo of the theme by using the active passive ratio """
 
-        active = ((angerDensity + joyDensity) / 2)
-        passive = sadnessDensity
-        activityScore = active - passive
+        activityScore = overallActive - overallPassive
 
-        self.tempo = ((active/(maxTempo - minTempo))*180)
+        activityScores = [a_i - b_i for a_i, b_i in zip(actives, passives)]
 
-        self.tempo =  minTempo + (((active - minActive) * (maxTempo - minTempo)) / (maxActive - minActive))
+        maxActivityScore = max(activityScores)
+        minActivityScore = min(activityScores)
+
+        self.tempo = minTempo + (((activityScore - minActivityScore) * (maxTempo - minTempo)) / (maxActivityScore - minActivityScore))
+        self.tempo = round(self.tempo)
         return self.tempo
 
     def setKey(self, positiveCount, negativeCount):
@@ -79,7 +77,6 @@ class Theme:
             self.key = "major"
         else:
             self.key = "minor"
-        print(self.key)
         return self.key
 
     def calculateCounts(self, theText):
@@ -102,7 +99,6 @@ class Theme:
         """Main method to generate the Theme. """
 
         (overallCounts, overallWordCount) = self.calculateCounts(theText)
-        self.setTempo(overallCounts["anger"] / overallWordCount, overallCounts["joy"] / overallWordCount, overallCounts["sadness"] / overallWordCount)
         self.setKey(overallCounts["positive"], overallCounts["negative"])
 
         # Calculate melody tags (i.e. overall + 8 different emotions)
@@ -133,8 +129,19 @@ class Theme:
         # Split the input text into Plot chunks
         plotChunks = np.array_split(theText, PLOT_CHUNKS)
         plotChunkCounts = []
+
+        plotChunkPassives = []
+        plotChunkActives = []
         for melodyChunk in plotChunks:
-            plotChunkCounts.append(self.calculateCounts(melodyChunk))
+            theCounts = self.calculateCounts(melodyChunk)
+            plotChunkCounts.append(theCounts)
+            plotChunkActives.append(((theCounts[0]["anger"]/theCounts[1]) + (theCounts[0]["joy"]/theCounts[1])) / 2)
+            plotChunkPassives.append(theCounts[0]["sadness"]/theCounts[1])
+
+
+        overallActive = ((overallCounts["anger"] / overallWordCount) + (overallCounts["joy"] / overallWordCount)) / 2
+        overallPassive = overallCounts["sadness"] / overallWordCount
+        self.setTempo(overallActive, overallPassive, plotChunkActives, plotChunkPassives)
 
         # For each melody, go through and generate
         for melody in self.melodies:

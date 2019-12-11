@@ -12,8 +12,7 @@ theTheme = TransProse.Theme()
 theTheme.generate(theText)
 
 theOutput = theTheme.output()
-
-generate_midi.gen_midi(theOutput["melodies"],60)
+generate_midi.gen_midi(theOutput["melodies"],theOutput["tempo"])
 
 #Magenta Generate
 subprocess.call(["melody_rnn_generate","--config=attention_rnn", "--bundle_file=./models/attention_rnn.mag", "--output_dir=./generated","--num_outputs=1","--num_steps=528","--primer_midi=generated_melody_primer.mid"])
