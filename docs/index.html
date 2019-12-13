@@ -58,16 +58,17 @@
 							</div>
 						</section>
 						<section>
-							<a href="#" class="image"><img src="images/pic01.jpg" alt="" data-position="center center" /></a>
+							<a href="#" class="image"><img src="images/text_mining.png" alt="" data-position="25% 25%" /></a>
 							<div class="content">
 								<div class="inner">
 									<h2>Text Pre-Processing</h2>
 									<p>We are able to read text from a text file or a URL of a Wikia page for a character. Taking the text as input, we clean it of all punctuation and stop words.</p>
+									<p>&nbsp;</p>
 								</div>
 							</div>
 						</section>
 						<section>
-							<a href="#" class="image"><img src="images/pic02.jpg" alt="" data-position="top center" /></a>
+							<a href="#" class="image"><img src="images/emotional_density.png" alt="" data-position="top center" /></a>
 							<div class="content">
 								<div class="inner">
 									<h2>Emotional Densities</h2>
@@ -81,7 +82,7 @@
 							</div>
 						</section>
 						<section>
-							<a href="#" class="image"><img src="images/pic03.jpg" alt="" data-position="25% 25%" /></a>
+							<a href="#" class="image"><img src="images/mode.png" alt="" data-position="25% 25%" /></a>
 							<div class="content">
 								<div class="inner">
 									<h2>Musical Mode</h2>
@@ -93,7 +94,7 @@
 							</div>
 						</section>
 						<section>
-								<a href="#" class="image"><img src="images/pic01.jpg" alt="" data-position="center center" /></a>
+								<a href="#" class="image"><img src="images/melodic_structure.png" alt="" data-position="center center" /></a>
 								<div class="content">
 									<div class="inner">
 										<h2>Melodic Structure</h2>
@@ -105,12 +106,12 @@
 								</div>
 							</section>
 							<section>
-								<a href="#" class="image"><img src="images/pic03.jpg" alt="" data-position="25% 25%" /></a>
+								<a href="#" class="image"><img src="images/voicing.png" alt="" data-position="25% 25%" /></a>
 								<div class="content">
 									<div class="inner">
 										<h2>Melodic Voicing</h2>
 										<p>The voicing of each melody, in other words, what octave on a piano the melody will traverse, is proportional to the difference between
-											the joy and sadness densities of the text. The voicing of the main melodic line is calculated via equation to the left.</p>
+											the joy and sadness densities of the text. The voicing of the main melodic line is calculated via equation below:</p>
 
 										<p>Here, <em>JS</em> represents the difference between the Joy and Sadness densities in the input text. <em>JS</em><sub>min</sub> represents
 											the minimum <em>JS</em> value across a corpus of texts that the authors analyzed while <em>JS</em><sub>max</sub> represents the max across
@@ -119,7 +120,7 @@
 										<p>This guarantees that the overall melodic voice (<em>M</em><sub>0</sub>) is linearly mapped to either octave 4, 5, or 6 on a piano keyboard. The second two melodic
 											voices are then calculated based off the octave of <em>M</em><sub>0</sub>.</p>
 
-										<img src="images/second_melodic_voicing.png" />
+										<p><img src="images/second_melodic_voicing.png" /></p>
 
 										<p>In other words, the octave of <em>M</em><sub>1</sub> is an octave higher than <em>M</em><sub>0</sub> if the emotion it represents is
 											a positive emotion (Joy or Trust), an octave lower if the emotion it represents is negative (Anger, Fear, Sadness, or Disgust), and the
@@ -128,7 +129,7 @@
 								</div>
 							</section>
 							<section>
-								<a href="#" class="image"><img src="images/pic03.jpg" alt="" data-position="25% 25%" /></a>
+								<a href="#" class="image"><img src="images/Note-Values-Tree.png" alt="" data-position="25% 25%" /></a>
 								<div class="content">
 									<div class="inner">
 										<h2>Note Durations</h2>
@@ -145,7 +146,7 @@
 								</div>
 							</section>
 							<section>
-								<a href="#" class="image"><img src="images/pic03.jpg" alt="" data-position="25% 25%" /></a>
+								<a href="#" class="image"><img src="images/pitch_selection.png" alt="" data-position="25% 25%" /></a>
 								<div class="content">
 									<div class="inner">
 										<h2>Pitch Selection</h2>
@@ -159,7 +160,7 @@
 												<tr>
 													<th>Scale Degree</th>
 													<th>Name</th>
-													<th>Consonance Ranking <br>(lower means more consonant)</th>
+													<th>Consonance Ranking</th>
 												</tr>
 												<tr>
 													<td>1</td>
@@ -216,22 +217,26 @@
 										<h2>Tempo</h2>
 										<p>TranProse makes a number of simplifications in order to set a tempo for the melodic lines. Firstly, it assumes a common time
 										meter. That is, there are four beats in a measure in a duple meter. However, the underlying priciple is easy to understand: the more
-									active the input text, the higher the tempo. The less active, the lower the tempo. The original LUKE system calculates this directly via
-									equation below:</p>
-									<img style="width:75%;" src="images/tempo_mapping.png"></img>
-									<p>However, because the authors make the max and min values dependent on their own corpus (which is not specified), we created a different
-										linear mapping that encodes the same sort of relationship. In essence, each piece starts with a tempo of 90 beats per minute. That tempo
-										is then modified by the ratio of active to passive densities in the input text.
+									active the input text, the higher the tempo. The less active, the lower the tempo. The original TransProse system calculates this directly via
+									equation below:
+								</p>
+									<p><img style="width:75%;" src="images/tempo_mapping.png"></img></p>
+									<p>
+									However, because the authors make the max and min values dependent on their own corpus (which is not specified), we created a different
+										linear mapping that encodes the same sort of relationship. Instead of being dependent on a particular corpus of data, our method for
+									tempo mapping only relies on the singular input text provided. We calculate the activity score via the same process as above but for
+								   chunks of the input text. We then use the minimum and maximum activity scores across those chunks as upper and lower limits for the
+								tempo mapping. </p>
 									</div>
 								</div>
 							</section>
 							<section>
-								<a href="#" class="image"><img src="images/pic03.jpg" alt="" data-position="25% 25%" /></a>
+								<a href="#" class="image"><img src="images/magenta.png" alt="" data-position="25% 25%" /></a>
 								<div class="content">
 									<div class="inner">
 										<h2>Magenta</h2>
 										<p>From the musical information calculated above, a MIDI file is generated using Pretty MIDI and passed to pretrained models from Project Magenta, an open source ML libary to help join machine learning and music.
-											We used Magenta to generate extensions of our primer using the Melody RNN model, the Polyphony RNN model, and the Performnace RNN Model. 
+											We used Magenta to generate extensions of our primer using the Melody RNN model, the Polyphony RNN model, and the Performnace RNN Model.
 										</p>
 									</figure>
 									</div>
@@ -423,6 +428,7 @@
 									<p>LUKE was built by:<br />Kevin Chan (kevinchan2019@u.northwestern.edu)<br/>Connor Bain (connorbain2015@u.northwestern.edu)</p>
 									<div class="inner medium" style="margin-bottom: 10px">
 										<a href="https://github.com/ke-chan/comp-creativity-soundtrack-generator" class="button">Source Code</a>
+										<a href="https://docs.google.com/presentation/d/16-B-Vi8_oiZWymaw44aqlAlqAX6PJ9ED55Zhlo2z7hw/edit?usp=sharing" class="button">Slide Deck</a>
 									</div>
 									<div class="inner medium" style="margin-top: 30px">
 										<p>LUKE uses the following Libraries:<br />Pickle, Magenta, NumPy, Pandas, Math, Beautiful Soup, Subprocess, and Pretty MIDI</p>
@@ -438,7 +444,7 @@
 			<footer id="footer" class="wrapper style1-alt">
 				<div class="inner">
 					<ul class="menu">
-						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						<li>&copy; LUKE. All rights reserved.</li><li>Design: <a href="http://html5up.net">Web Site based on HTML5 UP</a></li>
 					</ul>
 				</div>
 			</footer>
